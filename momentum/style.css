@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 3rem;
+    color: #fff;
+    height: 100vh;
+    background-image: url('./images/overlay.png');
+    background-position: center center;
+    transition: background-image .5s linear;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./images/overlay.png');
+    background-size: 100% 100%;
+    z-index: 1;
+}
+
+.time {
+    font-size: 15rem;
+    z-index: 2;
+}
+
+.greeting {
+    font-size: 6rem;
+    z-index: 2;
+}
+
+.focus {
+    font-size: 4rem;
+    z-index: 2;
+}
+
+.focus-text {
+    font-size: 4rem;
+    z-index: 2;
+}
+
+.navigation-buttons {
+    z-index: 2;
+}
