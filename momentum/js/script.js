@@ -1,8 +1,16 @@
+import Quote from './quote.js';
+
 const time = document.querySelector('.time');
 const greetingText = document.querySelector('.greeting__text');
 const greetingName = document.querySelector('.greeting__name');
 const focusText = document.querySelector('.focus-text');
 const buttonNext = document.querySelector('.navigation-buttons__next');
+const quoteContent = document.querySelector('.quote__text');
+const quoteAuthor = document.querySelector('.quote__author');
+const quoteRefreshButton = document.querySelector('.quote__refresh-button');
+const quoteRefreshImg = document.querySelector('.quote__refresh-button img');
+
+//TODO generate image array for the next day
 
 const timeOfDayArray = ['night', 'morning', 'afternoon', 'evening'];
 
@@ -19,11 +27,13 @@ class Day {
         this.imagesForDay = [];
         this.activeImageArrayNumber = '';
         this.bgImage = '';
+        this.quote = new Quote();
     }
 
     createDay() {
         this.setTimeOfDay();
         this.generateImagesForDay();
+        this.setRandomQuote();
     }
 
     setTime() {
@@ -80,6 +90,20 @@ class Day {
         this.bgImage = `url('./images/${this.timeOfDay}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`;
 
         return this.bgImage;  
+    }
+
+    async setRandomQuote() {
+        quoteRefreshImg.src = '/images/icons/ring-anim.svg'
+        let randomQuote = await this.quote.getRandomQuote();
+        console.log("randomQuote - ", randomQuote.content);
+        if (randomQuote.content.length > 200) {
+            console.log("randomQuote length - ", randomQuote.content.length);
+            this.setRandomQuote();
+        } else {
+            quoteRefreshImg.src = '/images/icons/ring.svg'
+            quoteContent.innerHTML = randomQuote.content;
+            quoteAuthor.innerHTML = randomQuote.originator.name;
+        }
     }
 }
 
@@ -177,4 +201,8 @@ buttonNext.addEventListener('click', () => {
     let imageNumber = newDay.imagesForDay[activeImageArrayNumber] || 5;
     document.body.style.backgroundImage = `url('./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`;
     console.log('activeImageArrayNumber', activeImageArrayNumber);
-})
+});
+
+quoteRefreshButton.addEventListener('click', () => {
+    newDay.setRandomQuote();
+});
