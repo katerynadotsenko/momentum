@@ -3,33 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/owfont-regular.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Momentum</title>
 </head>
 <body>
-    <div class="top-container">
-        <div class="weather"></div>
-    </div>
-    <div class="time">12:00:00</div>
-    <div class="greeting">
-        <span class="greeting__text"></span>
-        <span class="greeting__name" contenteditable="true"></span>
-    </div>
-    <span class="focus"> What is your main focus for today? </span>
-    <span class="focus-text" contenteditable="true"></span>
-    <div class="navigation-buttons">
-        <button class="navigation-buttons__next">Next image</button>
-    </div>
-    <div class="quote">
-        <div class="quote__content">
-            <span class="quote__text"></span>
-            <span class="quote__author"></span>
+    <main class="main">
+        <div class="top-container">
+            <div class="weather">
+                <span class="weather__city" contenteditable="true" spellcheck="false"></span>
+                <div class='weather__info-top'>
+                    <i class="weather__ico owf"></i>
+                    <span class="weather__temp"></span>
+                </div>
+                <div class="weather__description"></div>
+                <div class='weather__info-bottom'>
+                    <span>humidity: <span class="weather__humidity"></span></span>
+                    <span>wind speed: <span class="weather__wind-speed"></span></span>
+                </div>
+            </div>
         </div>
-        <button class="quote__refresh-button">
-            <img src="/images/icons/ring.svg" alt="refresh quote">
-        </button>
-    </div>
+        <div class="time">12:00:00</div>
+        <div class="greeting">
+            <span class="greeting__text"></span>
+            <span class="greeting__name" contenteditable="true" spellcheck="false"></span>
+        </div>
+        <span class="focus"> What is your main focus for today? </span>
+        <span class="focus-text" contenteditable="true" spellcheck="false"></span>
+        <div class="navigation-buttons">
+            <button class="navigation-buttons__next">Next image</button>
+        </div>
+        <div class="quote">
+            <div class="quote__content">
+                <span class="quote__text"></span>
+                <span class="quote__author"></span>
+            </div>
+            <button class="quote__refresh-button">
+                <img src="/images/icons/ring.svg" alt="refresh quote">
+            </button>
+        </div>
+    </main>
 <script type="module" src="./js/script.js"></script>
 </body>
 </html>

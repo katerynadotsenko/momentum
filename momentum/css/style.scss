@@ -11,11 +11,16 @@ button:focus {
 }
 
 html {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 10px;
 }
 
 body {
+    width: 100%;
+    height: 100vh;
+}
+
+.main {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -24,23 +29,27 @@ body {
     text-align: center;
     font-size: 3rem;
     color: #fff;
-    height: 100vh;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0, .2), 0 0 25px rgb(0, 0, 0, .2), 0 0 5px rgb(0, 0, 0, .2);
+    width: 100%;
+    height: 100%;
     padding: 20px;
-    background-image: url('./images/overlay.png');
+    background-image: url('../images/overlay.png');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-color: black;
     transition: background-image .5s linear;
+    overflow: hidden;
 }
 
-body::after {
+.main::after {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('./images/overlay.png');
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/overlay.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -49,17 +58,69 @@ body::after {
 
 .top-container {
     display: flex;
+    flex-direction: column;
+    align-self: flex-end;
     flex-basis: 30%;
+    text-shadow: none;
+    z-index: 2;
+}
+
+.weather {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgb(255, 255, 255, .85);
+    color: #474747;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    &__city {}
+
+    &__info-top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__ico {
+        font-size: 8rem;
+    }
+
+    &__temp {
+        font-size: 5rem;
+        margin-left: 10px;
+    }
+
+    &__description {
+        font-size: 2rem;
+        padding-bottom: 5px;
+    }
+
+    &__info-bottom {
+        border-top: 2px solid rgb(224, 224, 224);
+        font-size: 1.7rem;
+        padding-top: 5px;
+
+        & span:first-child {
+            margin-right: 5px;
+        }
+    }
 }
 
 .time {
-    font-size: 15rem;
+    font-size: 16rem;
     z-index: 2;
 }
 
 .greeting {
     font-size: 6rem;
     z-index: 2;
+
+    &__name {
+        display: inline-block;
+        min-width: 5rem;
+    }
 }
 
 .focus {
@@ -68,6 +129,9 @@ body::after {
 }
 
 .focus-text {
+    display: inline-block;
+    min-width: 500px;
+    //border-bottom: 1px solid white;
     font-size: 4rem;
     z-index: 2;
 }
@@ -106,6 +170,7 @@ body::after {
         background-color: transparent;
         border: none;
         cursor: pointer;
+        opacity: .8;
 
         & img {
             width: 100%;
