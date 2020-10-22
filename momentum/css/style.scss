@@ -1,3 +1,15 @@
+@mixin media-medium {
+    @media (max-width: 800px) {
+        @content;
+    }
+}
+
+@mixin media-small {
+    @media (max-width: 320px) {
+        @content;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -111,6 +123,10 @@ body {
 .time {
     font-size: 16rem;
     z-index: 2;
+
+    @include media-medium {
+        font-size: 20vw;
+    }
 }
 
 .greeting {
@@ -165,12 +181,20 @@ body {
     }
 
     &__refresh-button {
-        width: 33px;
-        height: 33px;
+        width: 38px;
+        height: 38px;
         background-color: transparent;
         border: none;
         cursor: pointer;
-        opacity: .8;
+        opacity: 0.8;
+        border-radius: 50%;
+        padding: 5px;
+        background: transparent;
+        transition: .2s linear;
+
+        &:hover {
+            background: rgb(255, 255, 255, .2);
+        }
 
         & img {
             width: 100%;

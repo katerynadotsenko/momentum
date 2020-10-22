@@ -46,7 +46,6 @@ class Day {
         this.setTimeOfDay();
         this.generateImagesForDay();
         this.setRandomQuote();
-        this.setWeather();
     }
 
     setTime() {
@@ -182,8 +181,8 @@ window.onload = () => {
 
     function updateDay() {
         updateTime();
-        updateBgImage();
         updateGreetingText();
+        updateBgImage();
         
         setTimeout(updateDay, 1000);
     }
@@ -345,6 +344,9 @@ window.onload = () => {
             activeTimeOfDayPath = timeOfDayArray[timeOfDayArrayNumber < 3 ? timeOfDayArrayNumber + 1 : 0];
         }
         let imageNumber = newDay.imagesForDay[activeImageArrayNumber] || 5;
+        console.log("activeTimeOfDayPath - ", activeTimeOfDayPath);
+        console.log("imageNumber - ", imageNumber);
+        console.log("path - ", `url('./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`);
         main.style.backgroundImage = `url('./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`;
     });
     

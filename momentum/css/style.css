@@ -104,6 +104,11 @@ body {
   font-size: 16rem;
   z-index: 2;
 }
+@media (max-width: 800px) {
+  .time {
+    font-size: 20vw;
+  }
+}
 
 .greeting {
   font-size: 6rem;
@@ -152,12 +157,19 @@ body {
   font-size: 1.5rem;
 }
 .quote__refresh-button {
-  width: 33px;
-  height: 33px;
+  width: 38px;
+  height: 38px;
   background-color: transparent;
   border: none;
   cursor: pointer;
   opacity: 0.8;
+  border-radius: 50%;
+  padding: 5px;
+  background: transparent;
+  transition: 0.2s linear;
+}
+.quote__refresh-button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 .quote__refresh-button img {
   width: 100%;
