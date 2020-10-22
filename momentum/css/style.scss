@@ -108,7 +108,7 @@ body {
     cursor: default;
 
     @include media-medium {
-        flex-basis: 15%;
+        flex-basis: 10%;
         align-self: center;
     }
 }
@@ -138,11 +138,11 @@ body {
 
     @include media-medium() {
         margin-bottom: 90px;
-        flex-basis: 20%;
+        flex-basis: 25%;
     }
 
     @include media-small() {
-        flex-basis: 25%;
+        flex-basis: 30%;
     }
 }
 
@@ -157,6 +157,14 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
 
+    @include media-medium {
+        min-width: auto;
+    }
+
+    @include media-small {
+        padding: 8px;
+    }
+
     &__info-top {
         display: flex;
         flex-direction: column;
@@ -167,6 +175,10 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
+
+            @include media-medium {
+                align-items: flex-start;
+            }
         }
 
         @include media-medium {
@@ -183,6 +195,10 @@ body {
             font-size: 2rem;
             padding-right: 10px;
         }
+
+        @include media-small {
+            font-size: 1.9rem;
+        }
     }
 
     &__ico {
@@ -190,6 +206,10 @@ body {
 
         @include media-medium {
             font-size: 3rem;
+        }
+
+        @include media-small {
+            font-size: 1.9rem;
         }
     }
 
@@ -202,6 +222,10 @@ body {
             font-size: 2rem;
             padding-right: 10px;
         }
+
+        @include media-small {
+            font-size: 1.9rem;
+        }
     }
 
     &__description {
@@ -210,6 +234,10 @@ body {
 
         @include media-medium {
             padding-bottom: 0;
+        }
+
+        @include media-small {
+            font-size: 1.9rem;
         }
     }
 
