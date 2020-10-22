@@ -12,12 +12,14 @@
     <main class="main">
         <div class="top-container">
             <div class="weather">
-                <span class="weather__city" contenteditable="true" spellcheck="false"></span>
                 <div class='weather__info-top'>
-                    <i class="weather__ico owf"></i>
-                    <span class="weather__temp"></span>
+                    <span class="weather__city" contenteditable="true" spellcheck="false"></span>
+                    <div class="weather__info-top__ico-tepm">
+                        <i class="weather__ico owf"></i>
+                        <span class="weather__temp"></span>
+                    </div>
+                    <div class="weather__description"></div>
                 </div>
-                <div class="weather__description"></div>
                 <div class='weather__info-bottom'>
                     <span>humidity: <span class="weather__humidity"></span></span>
                     <span>wind speed: <span class="weather__wind-speed"></span></span>
@@ -39,9 +41,6 @@
             </div>
         </div>
         <div class="bottom-container">
-            <div class="navigation-buttons">
-                <button class="navigation-buttons__next">Next image</button>
-            </div>
             <div class="quote">
                 <div class="quote__content">
                     <span class="quote__text"></span>
@@ -50,9 +49,9 @@
                 <button class="quote__refresh-button">
                     <img src="/images/icons/ring.svg" alt="refresh quote">
                 </button>
-            </div>
-            <div class="info"></div>
+            </div> 
         </div>
+        <button class="button-next"></button>
     </main>
 <script type="module" src="./js/script.js"></script>
 </body>

@@ -2,35 +2,36 @@ import Quote from './quote.js';
 import Weather from './weather.js';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const main = document.querySelector('.main');
-const time = document.querySelector('.time');
-const date = document.querySelector('.date');
-const greetingText = document.querySelector('.greeting__text');
-const greetingName = document.querySelector('.greeting__name');
-const focusText = document.querySelector('.focus__text');
-const buttonNext = document.querySelector('.navigation-buttons__next');
-const quoteContent = document.querySelector('.quote__text');
-const quoteAuthor = document.querySelector('.quote__author');
-const quoteRefreshButton = document.querySelector('.quote__refresh-button');
-const quoteRefreshImg = document.querySelector('.quote__refresh-button img');
+const main = document.querySelector('.main'),
+        time = document.querySelector('.time'),
+        date = document.querySelector('.date'),
+        greetingText = document.querySelector('.greeting__text'),
+        greetingName = document.querySelector('.greeting__name'),
+        focusText = document.querySelector('.focus__text'),
+        buttonNext = document.querySelector('.button-next'),
+        quoteContent = document.querySelector('.quote__text'),
+        quoteAuthor = document.querySelector('.quote__author'),
+        quoteRefreshButton = document.querySelector('.quote__refresh-button'),
+        quoteRefreshImg = document.querySelector('.quote__refresh-button img');
 
-const weatherCity = document.querySelector('.weather__city');
-const weatherIco = document.querySelector('.weather__ico');
-const weatherTemp = document.querySelector('.weather__temp');
-const weatherDescription = document.querySelector('.weather__description');
-const weatherHumidity = document.querySelector('.weather__humidity');
-const weatherWindSpeed = document.querySelector('.weather__wind-speed');
+const weatherCity = document.querySelector('.weather__city'),
+        weatherIco = document.querySelector('.weather__ico'),
+        weatherTemp = document.querySelector('.weather__temp'),
+        weatherDescription = document.querySelector('.weather__description'),
+        weatherBottom = document.querySelector('.weather__info-bottom'),
+        weatherHumidity = document.querySelector('.weather__humidity'),
+        weatherWindSpeed = document.querySelector('.weather__wind-speed');
 
 //TODO generate image array for the next day
 
 const timeOfDayArray = ['night', 'morning', 'afternoon', 'evening'];
 
-let timeOfDay = '';
-let bgImage = '';
-let activeImageArrayNumber = '';
-let activeTimeOfDayPath = '';
+let timeOfDay = '',
+        bgImage = '',
+        activeImageArrayNumber = '',
+        activeTimeOfDayPath = '';
 
 class Day {
     constructor() {
@@ -151,6 +152,7 @@ class Day {
                     weatherDescription.innerHTML = 'The city not found.<br>Please check the spelling.';
                     weatherHumidity.textContent = '';
                     weatherWindSpeed.textContent = '';
+                    weatherBottom.style.display = 'none';
                 } else {
                     let dayNightPrefix = this.timeOfDay === 'night' ? '-n' : '-d';
                 
@@ -159,6 +161,8 @@ class Day {
                         weatherIco.classList.remove(className);
                         }
                     });
+
+                    weatherBottom.style.display = 'block';
     
                     weatherIco.classList.add(`owf-${weatherData.weather[0].id + dayNightPrefix}`);
                     weatherTemp.textContent = `${weatherData.main.temp.toFixed(0)}°C`;
@@ -172,10 +176,13 @@ class Day {
             weatherDescription.innerHTML = 'Cannot fetch the data.<br>Please try later.';
             weatherHumidity.textContent = '';
             weatherWindSpeed.textContent = '';
+            weatherBottom.style.display = 'none';
         }
 
     }
 }
+
+
 
 window.onload = () => {
     const newDay = new Day();

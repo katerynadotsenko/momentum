@@ -5,8 +5,30 @@
 }
 
 @mixin media-small {
-    @media (max-width: 320px) {
+    @media (max-width: 640px) {
         @content;
+    }
+}
+
+@keyframes move {
+    0% {
+        right: 20px;
+    }
+
+    100% {
+        right: 30px;
+    }
+}
+
+@keyframes size {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+
+    100% {
+        width: 55px;
+        height: 55px;
     }
 }
 
@@ -52,6 +74,14 @@ body {
     background-color: black;
     transition: background-image .5s linear;
     overflow: hidden;
+
+    @include media-medium {
+        padding: 10px;
+    }
+
+    @include media-small {
+        padding: 5px;
+    }
 }
 
 .main::after {
@@ -72,33 +102,52 @@ body {
     flex-basis: 25%;
     display: flex;
     flex-direction: column;
-    align-self: flex-end;
+    align-self: flex-start;
     text-shadow: none;
     z-index: 2;
     cursor: default;
 
     @include media-medium {
+        flex-basis: 15%;
         align-self: center;
     }
 }
 
 .center-container {
-    flex-basis: 60%;
+    flex-basis: 55%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     z-index: 2;
+
+    @include media-medium {
+        flex-basis: 65%;
+    }
+
+    @include media-small {
+        flex-basis: 60%;
+    }
 }
 
 .bottom-container {
-    flex-basis: 15%;
+    flex-basis: 20%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     z-index: 2;
+
+    @include media-medium() {
+        margin-bottom: 90px;
+        flex-basis: 20%;
+    }
+
+    @include media-small() {
+        flex-basis: 25%;
+    }
 }
 
 .weather {
+    min-width: 200px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -108,32 +157,70 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
 
-    &__city {}
-
     &__info-top {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+
+        &__ico-tepm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @include media-medium {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+
+    &__city {
+        font-size: 4rem;
+
+        @include media-medium {
+            font-size: 2rem;
+            padding-right: 10px;
+        }
     }
 
     &__ico {
         font-size: 8rem;
+
+        @include media-medium {
+            font-size: 3rem;
+        }
     }
 
     &__temp {
         font-size: 5rem;
         margin-left: 10px;
+
+        @include media-medium {
+            margin-left: 2px;
+            font-size: 2rem;
+            padding-right: 10px;
+        }
     }
 
     &__description {
         font-size: 2rem;
         padding-bottom: 5px;
+
+        @include media-medium {
+            padding-bottom: 0;
+        }
     }
 
     &__info-bottom {
         border-top: 2px solid rgb(224, 224, 224);
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         padding-top: 5px;
+
+        &>* {
+            white-space: nowrap;
+        }
 
         & span:first-child {
             margin-right: 5px;
@@ -155,13 +242,27 @@ body {
     }
 }
 
-.date {}
+.date {
+    font-size: 3rem;
+
+    @include media-small {
+        font-size: 2rem;
+    }
+}
 
 .greeting {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     font-size: 6rem;
+
+    @include media-medium {
+        font-size: 8vw;
+    }
+
+    @include media-small {
+        font-size: 9vw;
+    }
 
     &__text {
         white-space: nowrap;
@@ -202,9 +303,17 @@ body {
 .focus {
     display: flex;
     flex-direction: column;
+    font-size: 3.5rem;
+
+    @include media-medium {
+        font-size: 3rem;
+    }
+
+    @include media-small {
+        font-size: 2.5rem;
+    }
 
     &__question {
-        font-size: 3.5rem;
         cursor: default;
     }
 
@@ -214,7 +323,6 @@ body {
         align-self: center;
         padding: 0 20px 0 10px;
         //border-bottom: 1px solid white;
-        font-size: 3.5rem;
         border-radius: 5px;
         background-color: transparent;
         transition: .3s linear;
@@ -243,26 +351,50 @@ body {
     }
 }
 
-.navigation-buttons {
-    flex-basis: 10%;
-    display: flex;
-    align-items: flex-end;
-}
+.button-next {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    background-image: url('../images/icons/next-button.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    opacity: .7;
+    transition: .2s linear;
+    animation: move .8s 1s infinite alternate;
+    cursor: pointer;
+    z-index: 3;
 
-.info {
-    flex-basis: 10%;
-    display: flex;
-    align-items: flex-end;
+    @include media-medium {
+        width: 50px;
+        height: 50px;
+        top: auto;
+        bottom: 25px;
+        right: 50%;
+        transform: translateX(50%);
+        animation: size .8s 1s infinite alternate;
+    }
+
+    &:hover {
+        opacity: 1;
+        animation-play-state: paused;
+    }
 }
 
 .quote {
-    flex-basis: 80%;
-    width: 60%;
-    min-height: 20%;
+    max-width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include media-medium {
+        max-width: 100%;
+    }
 
     &__content {
         display: flex;
@@ -274,6 +406,15 @@ body {
     &__text {
         font-size: 2rem;
         margin: 0 10px 5px 10px;
+
+        @include media-medium {
+            font-size: 1.8rem;
+        }
+
+        @include media-small {
+            font-size: 1.6rem;
+            margin: 0 0 5px 0;
+        }
     }
 
     &__author {
