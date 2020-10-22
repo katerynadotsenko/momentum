@@ -71,7 +71,7 @@ class Day {
             hours = dateToday.getHours(),
             minutes = dateToday.getMinutes(),
             seconds = dateToday.getSeconds();
-        this.time = `${hours}:${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
+        this.time = `${hours > 9 ? hours : '0' + hours}:${minutes > 9 ? minutes : '0' + minutes}:${seconds > 9 ? seconds : '0' + seconds}`;
         return this.time;
     }
     
