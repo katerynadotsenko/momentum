@@ -69,11 +69,32 @@ body {
 }
 
 .top-container {
+    flex-basis: 25%;
     display: flex;
     flex-direction: column;
     align-self: flex-end;
-    flex-basis: 30%;
     text-shadow: none;
+    z-index: 2;
+    cursor: default;
+
+    @include media-medium {
+        align-self: center;
+    }
+}
+
+.center-container {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    z-index: 2;
+}
+
+.bottom-container {
+    flex-basis: 15%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     z-index: 2;
 }
 
@@ -120,55 +141,134 @@ body {
     }
 }
 
+.date-time {
+    cursor: default;
+}
+
 .time {
     font-size: 16rem;
-    z-index: 2;
+    line-height: 16rem;
 
     @include media-medium {
         font-size: 20vw;
+        line-height: 20vw;
     }
 }
 
+.date {}
+
 .greeting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     font-size: 6rem;
-    z-index: 2;
+
+    &__text {
+        white-space: nowrap;
+        cursor: default;
+    }
 
     &__name {
-        display: inline-block;
-        min-width: 5rem;
+        position: relative;
+        padding: 0 20px 0 12px;
+        border-radius: 5px;
+        background-color: transparent;
+        transition: .3s linear;
+
+        &:after {
+            content: '';
+            display: none;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(calc(-50% - 10px));
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, .5);
+            border-radius: 50%;
+            box-shadow: 0px 10px 0px 0px rgba(255, 255, 255, .5), 0px 20px 0px 0px rgba(255, 255, 255, .5);
+        }
+
+        &:hover {
+            background-color: rgb(255, 255, 255, .1);
+
+            &:after {
+                display: block;
+            }
+        }
     }
 }
 
 .focus {
-    font-size: 4rem;
-    z-index: 2;
-}
+    display: flex;
+    flex-direction: column;
 
-.focus-text {
-    display: inline-block;
-    min-width: 500px;
-    //border-bottom: 1px solid white;
-    font-size: 4rem;
-    z-index: 2;
+    &__question {
+        font-size: 3.5rem;
+        cursor: default;
+    }
+
+    &__text {
+        position: relative;
+        display: inline-block;
+        align-self: center;
+        padding: 0 20px 0 10px;
+        //border-bottom: 1px solid white;
+        font-size: 3.5rem;
+        border-radius: 5px;
+        background-color: transparent;
+        transition: .3s linear;
+
+        &:after {
+            content: '';
+            display: none;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(calc(-50% - 10px));
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, .5);
+            border-radius: 50%;
+            box-shadow: 0px 10px 0px 0px rgba(255, 255, 255, .5), 0px 20px 0px 0px rgba(255, 255, 255, .5);
+        }
+
+        &:hover {
+            background-color: rgb(255, 255, 255, .1);
+
+            &:after {
+                display: block;
+            }
+        }
+    }
 }
 
 .navigation-buttons {
-    z-index: 2;
+    flex-basis: 10%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.info {
+    flex-basis: 10%;
+    display: flex;
+    align-items: flex-end;
 }
 
 .quote {
+    flex-basis: 80%;
     width: 60%;
     min-height: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 2;
 
     &__content {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
+        cursor: default;
     }
 
     &__text {
@@ -183,17 +283,17 @@ body {
     &__refresh-button {
         width: 38px;
         height: 38px;
-        background-color: transparent;
         border: none;
-        cursor: pointer;
-        opacity: 0.8;
         border-radius: 50%;
         padding: 5px;
-        background: transparent;
+        background-color: transparent;
         transition: .2s linear;
+        opacity: 0.8;
+        cursor: pointer;
 
         &:hover {
-            background: rgb(255, 255, 255, .2);
+            opacity: 1;
+            background-color: rgb(255, 255, 255, .2);
         }
 
         & img {

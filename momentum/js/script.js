@@ -1,12 +1,15 @@
 import Quote from './quote.js';
 import Weather from './weather.js';
 
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const main = document.querySelector('.main');
 const time = document.querySelector('.time');
+const date = document.querySelector('.date');
 const greetingText = document.querySelector('.greeting__text');
 const greetingName = document.querySelector('.greeting__name');
-const focusText = document.querySelector('.focus-text');
+const focusText = document.querySelector('.focus__text');
 const buttonNext = document.querySelector('.navigation-buttons__next');
 const quoteContent = document.querySelector('.quote__text');
 const quoteAuthor = document.querySelector('.quote__author');
@@ -44,8 +47,22 @@ class Day {
 
     createDay() {
         this.setTimeOfDay();
+        this.setDay();
         this.generateImagesForDay();
         this.setRandomQuote();
+    }
+
+    generateDay(date) {
+        const dayName = days[date.getDay()],
+                monthName = months[date.getMonth()],
+                dayNumber = date.getDate();
+        return `${dayName}, ${dayNumber} ${monthName}`;
+    }
+
+    setDay() {
+        this.dateToday = new Date();
+        date.textContent = this.generateDay(this.dateToday);
+        console.log(this.generateDay(this.dateToday));
     }
 
     setTime() {
@@ -183,6 +200,10 @@ window.onload = () => {
         updateTime();
         updateGreetingText();
         updateBgImage();
+
+        if (newDay.generateDay(newDay.dateToday) !== newDay.generateDay(new Date())) {
+            newDay.setDay();
+        }
         
         setTimeout(updateDay, 1000);
     }
@@ -195,7 +216,7 @@ window.onload = () => {
         const newTimeOfDay = newDay.setTimeOfDay();
         if (newTimeOfDay !== timeOfDay) {
             timeOfDay = newTimeOfDay;
-            greetingText.innerHTML = `Good ${timeOfDay}, `;
+            greetingText.innerHTML = `Good ${timeOfDay},`;
         }
     }
     
@@ -301,7 +322,6 @@ window.onload = () => {
     function clear(e){
         const elementWidth = e.target.offsetWidth;
         e.target.innerText = '';
-        e.target.focus();
         console.log(`${elementWidth}px`);
         e.target.style.minWidth = `${elementWidth+1}px`;
     }
