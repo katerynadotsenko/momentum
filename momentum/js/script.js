@@ -123,14 +123,14 @@ class Day {
     }
 
     async setRandomQuote() {
-        quoteRefreshImg.src = '/images/icons/ring-anim.svg'
+        quoteRefreshImg.src = './images/icons/ring-anim.svg'
         let randomQuote = await this.quote.getRandomQuote();
         console.log("randomQuote - ", randomQuote.content);
         if (randomQuote.content.length > 200) {
             console.log("randomQuote length - ", randomQuote.content.length);
             this.setRandomQuote();
         } else {
-            quoteRefreshImg.src = '/images/icons/ring.svg'
+            quoteRefreshImg.src = './images/icons/ring.svg'
             quoteContent.innerHTML = randomQuote.content;
             quoteAuthor.innerHTML = randomQuote.originator.name;
         }
