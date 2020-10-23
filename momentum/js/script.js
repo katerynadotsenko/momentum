@@ -209,6 +209,8 @@ window.onload = () => {
     getCity();
 
     newDay.createDay();
+    preloadImages(newDay.imagesForDay);
+
 
     updateDay();
     updateWeather();
@@ -216,6 +218,17 @@ window.onload = () => {
     activeTimeOfDayPath = newDay.timeOfDay;
     getName();
     getFocus();
+
+    function preloadImages(images) {
+        images.forEach(img => {
+            console.log(img);
+            timeOfDayArray.forEach(timeOfDay => {
+                const image = new Image();
+                const src = `./images/${timeOfDay}/${img > 9 ? img : '0' + img}.jpg`;
+                image.src = src;
+            })
+        });
+    };
 
     function updateWeather() {
         newDay.setWeather();
@@ -401,7 +414,7 @@ window.onload = () => {
         console.log("path - ",src);
         
         buttonNext.disabled = true;
-        setTimeout(function() { buttonNext.disabled = false }, 1000);
+        setTimeout(function() { buttonNext.disabled = false }, 500);
     });
     
     quoteRefreshButton.addEventListener('click', () => {

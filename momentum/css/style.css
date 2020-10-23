@@ -85,7 +85,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transition: background-image 1s linear;
+  transition: background-image 0.5s linear;
   overflow: hidden;
 }
 @media (max-width: 800px) {
