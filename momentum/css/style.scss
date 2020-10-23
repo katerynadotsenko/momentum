@@ -77,12 +77,12 @@ body {
         text-align: center;
     }
 
-    .loaded_hiding & {
+    &.loaded_hiding {
         transition: 0.3s opacity;
         opacity: 0;
     }
 
-    .loaded & {
+    &.loaded {
         display: none;
     }
 }

@@ -5,6 +5,7 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const main = document.querySelector('.main'),
+        preloader = document.querySelector('.preloader'),
         time = document.querySelector('.time'),
         date = document.querySelector('.date'),
         greetingText = document.querySelector('.greeting__text'),
@@ -194,11 +195,13 @@ class Day {
 
 window.onload = () => {
 
-    document.body.classList.add('loaded_hiding');
-      window.setTimeout(function () {
-        document.body.classList.add('loaded');
-        document.body.classList.remove('loaded_hiding');
-      }, 500);
+    setTimeout(() => {
+        preloader.classList.add('loaded_hiding');
+        setTimeout(() => {
+            preloader.classList.add('loaded');
+            preloader.classList.remove('loaded_hiding');
+        }, 500);
+    }, 2000);
 
 
     const newDay = new Day();

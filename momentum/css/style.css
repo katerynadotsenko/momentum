@@ -60,11 +60,11 @@ body {
   margin-left: -35px;
   text-align: center;
 }
-.loaded_hiding .preloader {
+.preloader.loaded_hiding {
   transition: 0.3s opacity;
   opacity: 0;
 }
-.loaded .preloader {
+.preloader.loaded {
   display: none;
 }
 
