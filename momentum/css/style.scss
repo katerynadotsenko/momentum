@@ -223,6 +223,7 @@ body {
 
     &__city {
         font-size: 4rem;
+        cursor: auto;
 
         @include media-medium {
             font-size: 2rem;
