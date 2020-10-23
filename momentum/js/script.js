@@ -17,7 +17,8 @@ const main = document.querySelector('.main'),
         quoteRefreshButton = document.querySelector('.quote__refresh-button'),
         quoteRefreshImg = document.querySelector('.quote__refresh-button img');
 
-const weatherCity = document.querySelector('.weather__city'),
+const weather = document.querySelector('.weather'),
+        weatherCity = document.querySelector('.weather__city'),
         weatherIco = document.querySelector('.weather__ico'),
         weatherTemp = document.querySelector('.weather__temp'),
         weatherDescription = document.querySelector('.weather__description'),
@@ -155,6 +156,7 @@ class Day {
     }
 
     async setWeather() {
+        let weatherNotification = '';
         console.log("this.city - ", this.city);
         console.log("update weather");
         if (weatherCity.textContent === '[Enter City]') {
@@ -170,8 +172,13 @@ class Day {
                         weatherIco.classList.remove(className);
                         }
                     });
+                    weatherNotification = document.createElement('div');
+                    weatherNotification.classList.add('weather-notification');
+                    weatherNotification.innerHTML = 'The city not found.<br>Please check the spelling.';
+                    weather.append(weatherNotification);
+
                     weatherTemp.textContent = '';
-                    weatherDescription.innerHTML = 'The city not found.<br>Please check the spelling.';
+                    weatherDescription.textContent = '';
                     weatherHumidity.textContent = '';
                     weatherWindSpeed.textContent = '';
                     weatherBottom.style.display = 'none';
@@ -185,6 +192,11 @@ class Day {
                     });
 
                     weatherBottom.style.display = 'block';
+                    weatherNotification = document.querySelector('.weather-notification');
+                    console.log("weatherNotification - ", weatherNotification);
+                    if (weatherNotification !== null) {
+                        weatherNotification.remove();
+                    }
     
                     weatherIco.classList.add(`owf-${weatherData.weather[0].id + dayNightPrefix}`);
                     weatherTemp.textContent = `${weatherData.main.temp.toFixed(0)}°C`;
@@ -194,8 +206,12 @@ class Day {
                 }
             }
         } catch {
+            weatherNotification = document.createElement('div');
+            weatherNotification.classList.add('weather-notification');
+            weatherNotification.innerHTML = 'Cannot fetch the data.<br>Please try later.';
+            weather.append(weatherNotification);
             weatherTemp.textContent = '';
-            weatherDescription.innerHTML = 'Cannot fetch the data.<br>Please try later.';
+            weatherDescription.textContent = '';
             weatherHumidity.textContent = '';
             weatherWindSpeed.textContent = '';
             weatherBottom.style.display = 'none';
@@ -359,9 +375,8 @@ window.onload = () => {
     }
 
     function clear(e){
-        const elementWidth = e.target.offsetWidth;
+        const elementWidth = e.target.offsetWidth < 150 ? 150 : e.target.offsetWidth;
         e.target.innerText = '';
-        console.log(`${elementWidth}px`);
         e.target.style.minWidth = `${elementWidth+1}px`;
     }
     
