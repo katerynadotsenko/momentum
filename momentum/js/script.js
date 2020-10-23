@@ -75,9 +75,7 @@ class Day {
     }
     
 
-    setTimeOfDay() {
-        //утро 6:00-12:00, день 12:00-18:00, вечер 18:00-24:00, ночь 24:00-6:00
-    
+    setTimeOfDay() { 
         let dateToday = new Date(),
             hours = dateToday.getHours();
     
@@ -96,6 +94,7 @@ class Day {
 
     generateImagesForDay() {
         let randomImageNumber = 0;
+
         for (let i = 1; i <= 6; i++) {
             randomImageNumber = Math.floor(Math.random() * 20) + 1;
             if (this.imagesForDay.filter(item => item  === randomImageNumber).length === 0) {
@@ -111,10 +110,9 @@ class Day {
     generateBackgroundUrl() {
         const dateToday = new Date(),
             hours = dateToday.getHours();
-        let imageNumber;
-
+        
         this.activeImageArrayNumber = hours%6;
-        imageNumber = this.imagesForDay[this.activeImageArrayNumber];
+        const imageNumber = this.imagesForDay[this.activeImageArrayNumber];
         
         const src = `./images/${this.timeOfDay}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg`;
 
@@ -189,13 +187,20 @@ class Day {
             weatherWindSpeed.textContent = '';
             weatherBottom.style.display = 'none';
         }
-
     }
 }
 
 
 
 window.onload = () => {
+
+    document.body.classList.add('loaded_hiding');
+      window.setTimeout(function () {
+        document.body.classList.add('loaded');
+        document.body.classList.remove('loaded_hiding');
+      }, 500);
+
+
     const newDay = new Day();
 
     getCity();
@@ -237,14 +242,12 @@ window.onload = () => {
             greetingText.innerHTML = `Good ${timeOfDay},`;
         }
     }
-
     
     function updateBgImage() {
         const newBgImage = newDay.generateBackgroundUrl();
         if (newBgImage !== newDay.bgImage) {
             newDay.bgImage = newBgImage;
             newDay.setBackground(newBgImage);
-            //main.style.backgroundImage = newBgImage;
             console.log(newDay.bgImage);
         }
     }
@@ -384,7 +387,7 @@ window.onload = () => {
             let timeOfDayArrayNumber = timeOfDayArray.indexOf(activeTimeOfDayPath);
             activeTimeOfDayPath = timeOfDayArray[timeOfDayArrayNumber < 3 ? timeOfDayArrayNumber + 1 : 0];
         }
-        
+
         const imageNumber = newDay.imagesForDay[activeImageArrayNumber] || 5;
         const src = `./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg`;
 
