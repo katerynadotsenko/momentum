@@ -121,10 +121,22 @@ class Day {
     }
 
     setBackground(src) {
+        const getDataUrl = (img) => {
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            // Set width and height
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Draw the image
+            ctx.drawImage(img, 0, 0);
+            return canvas.toDataURL('image/jpeg');
+         }
+
         const img = document.createElement('img');
         img.src = src;
         img.onload = () => {
-            main.style.backgroundImage = `url(${src})`;      
+            main.style.backgroundImage = `url(${getDataUrl(img)})`;      
         };
     }
 
@@ -209,7 +221,6 @@ window.onload = () => {
     getCity();
 
     newDay.createDay();
-    preloadImages(newDay.imagesForDay);
 
 
     updateDay();
@@ -218,17 +229,6 @@ window.onload = () => {
     activeTimeOfDayPath = newDay.timeOfDay;
     getName();
     getFocus();
-
-    function preloadImages(images) {
-        images.forEach(img => {
-            console.log(img);
-            timeOfDayArray.forEach(timeOfDay => {
-                const image = new Image();
-                const src = `./images/${timeOfDay}/${img > 9 ? img : '0' + img}.jpg`;
-                image.src = src;
-            })
-        });
-    };
 
     function updateWeather() {
         newDay.setWeather();
