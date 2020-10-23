@@ -29,7 +29,6 @@ const weatherCity = document.querySelector('.weather__city'),
 const timeOfDayArray = ['night', 'morning', 'afternoon', 'evening'];
 
 let timeOfDay = '',
-        bgImage = '',
         activeImageArrayNumber = '',
         activeTimeOfDayPath = '';
 
@@ -109,7 +108,7 @@ class Day {
         console.log('this.imagesForDay', this.imagesForDay);
     }
 
-    setBackground() {
+    generateBackgroundUrl() {
         const dateToday = new Date(),
             hours = dateToday.getHours();
         let imageNumber;
@@ -117,9 +116,17 @@ class Day {
         this.activeImageArrayNumber = hours%6;
         imageNumber = this.imagesForDay[this.activeImageArrayNumber];
         
-        this.bgImage = `url('./images/${this.timeOfDay}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`;
+        const src = `./images/${this.timeOfDay}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg`;
 
-        return this.bgImage;  
+        return src;  
+    }
+
+    setBackground(src) {
+        const img = document.createElement('img');
+        img.src = src;
+        img.onload = () => {
+            main.style.backgroundImage = `url(${src})`;      
+        };
     }
 
     async setRandomQuote() {
@@ -139,6 +146,10 @@ class Day {
     async setWeather() {
         console.log("this.city - ", this.city);
         console.log("update weather");
+        if (weatherCity.textContent === '[Enter City]') {
+            weatherBottom.style.display = 'none';
+            return;
+        }
         try {
             if (this.city !== undefined || this.city !== '') {
                 let weatherData = await this.weather.getWeather(this.city);
@@ -226,13 +237,15 @@ window.onload = () => {
             greetingText.innerHTML = `Good ${timeOfDay},`;
         }
     }
+
     
     function updateBgImage() {
-        const newBgImage = newDay.setBackground();
-        if (newBgImage !== bgImage) {
-            bgImage = newBgImage;
-            main.style.backgroundImage = newBgImage;
-            console.log(newBgImage);
+        const newBgImage = newDay.generateBackgroundUrl();
+        if (newBgImage !== newDay.bgImage) {
+            newDay.bgImage = newBgImage;
+            newDay.setBackground(newBgImage);
+            //main.style.backgroundImage = newBgImage;
+            console.log(newDay.bgImage);
         }
     }
     
@@ -365,16 +378,24 @@ window.onload = () => {
     
     buttonNext.addEventListener('click', () => {
         activeImageArrayNumber = activeImageArrayNumber + 1;
+
         if (activeImageArrayNumber > 5) {
             activeImageArrayNumber = 0;
             let timeOfDayArrayNumber = timeOfDayArray.indexOf(activeTimeOfDayPath);
             activeTimeOfDayPath = timeOfDayArray[timeOfDayArrayNumber < 3 ? timeOfDayArrayNumber + 1 : 0];
         }
-        let imageNumber = newDay.imagesForDay[activeImageArrayNumber] || 5;
+        
+        const imageNumber = newDay.imagesForDay[activeImageArrayNumber] || 5;
+        const src = `./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg`;
+
+        newDay.setBackground(src);
+
         console.log("activeTimeOfDayPath - ", activeTimeOfDayPath);
         console.log("imageNumber - ", imageNumber);
-        console.log("path - ", `url('./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`);
-        main.style.backgroundImage = `url('./images/${activeTimeOfDayPath}/${imageNumber > 9 ? imageNumber : '0' + imageNumber}.jpg')`;
+        console.log("path - ",src);
+        
+        buttonNext.disabled = true;
+        setTimeout(function() { buttonNext.disabled = false }, 1000);
     });
     
     quoteRefreshButton.addEventListener('click', () => {

@@ -71,8 +71,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: black;
-    transition: background-image .5s linear;
+    transition: background-image 1s linear;
     overflow: hidden;
 
     @include media-medium {
@@ -148,7 +147,7 @@ body {
 
 .weather {
     min-width: 200px;
-    flex-grow: 1;
+    //flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
