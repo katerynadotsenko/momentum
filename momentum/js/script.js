@@ -163,6 +163,11 @@ class Day {
             weatherBottom.style.display = 'none';
             return;
         }
+        weatherNotification = document.querySelector('.weather-notification');
+        console.log("weatherNotification - ", weatherNotification);
+        if (weatherNotification !== null) {
+            weatherNotification.remove();
+        }
         try {
             if (this.city !== undefined || this.city !== '') {
                 let weatherData = await this.weather.getWeather(this.city);
@@ -192,11 +197,6 @@ class Day {
                     });
 
                     weatherBottom.style.display = 'block';
-                    weatherNotification = document.querySelector('.weather-notification');
-                    console.log("weatherNotification - ", weatherNotification);
-                    if (weatherNotification !== null) {
-                        weatherNotification.remove();
-                    }
     
                     weatherIco.classList.add(`owf-${weatherData.weather[0].id + dayNightPrefix}`);
                     weatherTemp.textContent = `${weatherData.main.temp.toFixed(0)}°C`;

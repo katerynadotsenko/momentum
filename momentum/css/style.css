@@ -213,6 +213,7 @@ body {
 }
 .weather__city {
   font-size: 4rem;
+  cursor: auto;
 }
 @media (max-width: 800px) {
   .weather__city {
@@ -321,6 +322,7 @@ body {
   }
 }
 .greeting__text {
+  padding-left: 20px;
   white-space: nowrap;
   cursor: default;
 }
